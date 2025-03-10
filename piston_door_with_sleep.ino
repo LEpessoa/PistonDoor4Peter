@@ -226,7 +226,7 @@ void pressurizarParaTrancamento()
     }
     digitalWrite(IN3_relay3_trancamento, LOW);
     delay(tempo_para_pressurizar_trancamento);
-    digitalWrite(IN3_relay3_trancamento, HOGH);
+    digitalWrite(IN3_relay3_trancamento, HIGH);
     portaTrancada = HIGH;
 }
 
