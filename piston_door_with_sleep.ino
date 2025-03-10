@@ -86,7 +86,7 @@ unsigned long wakeUpTime = 0;
 void loop()
 {   
     if ((millis() - timeSinceLastButtonPress) > timeToWaitBeforeSleeping) {
-      goToSleep();
+      //goToSleep();
     }  
 
     if ((millis() - wakeUpTime) < 3000) {return;}
