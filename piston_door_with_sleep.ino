@@ -50,9 +50,9 @@ void setup()
     pinMode(apertouSeFudeu, INPUT_PULLUP);
 
     // Inicializar pinos de saída
-    digitalWrite(IN1_relay1_abertura, LOW);
-    digitalWrite(IN2_relay2_fechamento, LOW); // intermitente!
-    digitalWrite(IN3_relay3_trancamento, LOW);
+    digitalWrite(IN1_relay1_abertura, HIGH);
+    digitalWrite(IN2_relay2_fechamento, HIGH); // intermitente!
+    digitalWrite(IN3_relay3_trancamento, HIGH);
     digitalWrite(LED_1_porta_Fechada, LOW);
 	
     setupCores();
@@ -224,23 +224,23 @@ void pressurizarParaTrancamento()
         delay(delay_que_sfc_pressionado_para_ativar_trancamento);
         if (digitalRead(SFC_fimDeCurso)) {return;}
     }
-    digitalWrite(IN3_relay3_trancamento, HIGH);
-    delay(tempo_para_pressurizar_trancamento);
     digitalWrite(IN3_relay3_trancamento, LOW);
+    delay(tempo_para_pressurizar_trancamento);
+    digitalWrite(IN3_relay3_trancamento, HOGH);
     portaTrancada = HIGH;
 }
 
 void despressurizarParaDestrancar()
 {
-    digitalWrite(IN3_relay3_trancamento, LOW);
+    digitalWrite(IN3_relay3_trancamento, HIGH);
     portaTrancada = LOW;
 }
 
 void empurrarPistaoFecharPorta()
 {
     despressurizarParaDestrancar();
-    digitalWrite(IN1_relay1_abertura, LOW);
-    digitalWrite(IN2_relay2_fechamento, HIGH);
+    digitalWrite(IN1_relay1_abertura, HIGH);
+    digitalWrite(IN2_relay2_fechamento, LOW);
     delay(tempo_para_pistao_alcancar_sfc);
   	if(digitalRead(SFC_fimDeCurso)){
       abrirPorta();
@@ -252,17 +252,17 @@ void empurrarPistaoFecharPorta()
         return;
       }
     }  
-    digitalWrite(IN2_relay2_fechamento, LOW);
+    digitalWrite(IN2_relay2_fechamento, HIGH);
   	portaFechada = HIGH;
 }
 
 void recolherPistaoAbrirPorta()
 {
     despressurizarParaDestrancar();
-    digitalWrite(IN2_relay2_fechamento, LOW);
-    digitalWrite(IN1_relay1_abertura, HIGH);
-    delay(tempo_para_pistao_recolher);
+    digitalWrite(IN2_relay2_fechamento, HIGH);
     digitalWrite(IN1_relay1_abertura, LOW);
+    delay(tempo_para_pistao_recolher);
+    digitalWrite(IN1_relay1_abertura, HIGH);
   	portaFechada = LOW;
 }
 
